@@ -120,7 +120,7 @@ function drawNetLine() {
 
 function draw() {
 	// next line blanks out the screen with black
-	colorRect(0,0,canvas.width,canvas.height,'black');
+	colorRect(0, 0, canvas.width, canvas.height, 'black');
 
 	if(showingWinScreen) {
 		canvasContext.fillStyle = 'yellow';
