@@ -47,8 +47,7 @@ window.onload = () => {
 
 	canvas.addEventListener('mousedown', handleMouseClick);
 
-	canvas.addEventListener('mousemove',
-		evt => {
+	canvas.addEventListener('mousemove', evt => {
 			let mousePos = calculateMousePos(evt);
 			playerPaddleY = mousePos.y - (paddleHeight / 2);
 		});
