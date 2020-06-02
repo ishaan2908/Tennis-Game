@@ -17,10 +17,10 @@ const paddleWidth = 10;
 const paddleHeight = 100;
 
 function calculateMousePos(evt) {
-	var rect = canvas.getBoundingClientRect();
-	var root = document.documentElement;
-	var mouseX = evt.clientX - rect.left - root.scrollLeft;
-	var mouseY = evt.clientY - rect.top - root.scrollTop;
+	let rect = canvas.getBoundingClientRect();
+	let root = document.documentElement;
+	let mouseX = evt.clientX - rect.left - root.scrollLeft;
+	let mouseY = evt.clientY - rect.top - root.scrollTop;
 	return {
 		x : mouseX,
 		y : mouseY
@@ -35,12 +35,12 @@ function handleMouseClick(evt) {
 	}
 }
 
-window.onload = function() {
+window.onload = () => {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 
-	var framesPerSecond = 30;
-	setInterval(function() {
+	let framesPerSecond = 30;
+	setInterval(() => {
 			move();
 			draw();	
 		}, 1000 / framesPerSecond);
@@ -48,8 +48,8 @@ window.onload = function() {
 	canvas.addEventListener('mousedown', handleMouseClick);
 
 	canvas.addEventListener('mousemove',
-		function(evt) {
-			var mousePos = calculateMousePos(evt);
+		evt => {
+			let mousePos = calculateMousePos(evt);
 			playerPaddleY = mousePos.y - (paddleHeight / 2);
 		});
 }
@@ -65,7 +65,7 @@ function ballReset() {
 }
 
 function computerMovement() {
-	var computerPaddleYCenter = computerPaddleY + (paddleHeight / 2);
+	let computerPaddleYCenter = computerPaddleY + (paddleHeight / 2);
 	if(computerPaddleYCenter < ballY - 35) {
 		computerPaddleY = computerPaddleY + 6;
 	} else if(computerPaddleYCenter > ballY + 35) {
@@ -86,7 +86,7 @@ function move() {
 	if(ballX < paddleWidth) {
 		if(ballY > playerPaddleY && ballY < playerPaddleY + paddleHeight) {
 			ballSpeedHorizontal = -ballSpeedHorizontal;
-			var deltaY = ballY - (playerPaddleY + paddleHeight / 2);
+			let deltaY = ballY - (playerPaddleY + paddleHeight / 2);
 			ballSpeedVertical = deltaY * 0.35;
 		} else {
 			computerScore++;
@@ -97,7 +97,7 @@ function move() {
 		if(ballY > computerPaddleY && ballY < computerPaddleY + paddleHeight) {
 			ballSpeedHorizontal = -ballSpeedHorizontal;
 
-			var deltaY = ballY - (computerPaddleY + paddleHeight / 2);
+			let deltaY = ballY - (computerPaddleY + paddleHeight / 2);
 			ballSpeedVertical = deltaY * 0.35;
 		} else {
 			playerScore++;
@@ -113,7 +113,7 @@ function move() {
 }
 
 function drawNetLine() {
-	for(var i = 0; i < canvas.height; i += 40) {
+	for(let i = 0; i < canvas.height; i += 40) {
 		colorRect((canvas.width / 2) -1, i, 2, 20, 'white');
 	}
 }
@@ -131,16 +131,16 @@ function draw() {
 			canvasContext.fillText("Computer Won!", canvas.width / 2, 200);
 		}
 
-		canvasContext.fillText("Click to Play Again", canvas.width / 2, 500);
+		canvasContext.fillText("Click to Play Again", canvas.width / 2 - 5, 500);
 		return;
 	}
 
 	drawNetLine();
 
-	// this is Player A paddle
+	// this is Player's paddle
 	colorRect(0, playerPaddleY, paddleWidth, paddleHeight, 'white');
 
-	// this is computer paddle
+	// this is Computer's paddle
 	colorRect(canvas.width - paddleWidth, computerPaddleY, paddleWidth, paddleHeight, 'white');
 
 	// next line draws the ball
